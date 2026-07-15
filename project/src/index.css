@@ -1,0 +1,404 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #1e293b transparent;
+  }
+
+  *::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background: #1e293b;
+    border-radius: 3px;
+  }
+
+  body {
+    background-color: #020617;
+    color: #e2e8f0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection {
+    background-color: rgba(245, 158, 11, 0.3);
+    color: #fff;
+  }
+}
+
+@layer components {
+  /* Film grain overlay - apply to any container */
+  .film-grain::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 128px 128px;
+    z-index: 1;
+    mix-blend-mode: overlay;
+  }
+
+  /* Scan lines overlay */
+  .scan-lines::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.03;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 0, 0, 0.15) 2px,
+      rgba(0, 0, 0, 0.15) 4px
+    );
+    z-index: 2;
+  }
+
+  /* Film strip border */
+  .film-strip-border {
+    position: relative;
+  }
+
+  .film-strip-border::before,
+  .film-strip-border::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 24px;
+    pointer-events: none;
+    z-index: 3;
+    background: repeating-linear-gradient(
+      180deg,
+      transparent 0px,
+      transparent 4px,
+      rgba(245, 158, 11, 0.06) 4px,
+      rgba(245, 158, 11, 0.06) 8px,
+      transparent 8px,
+      transparent 16px
+    );
+  }
+
+  .film-strip-border::before {
+    left: 0;
+    border-right: 1px solid rgba(245, 158, 11, 0.08);
+  }
+
+  .film-strip-border::after {
+    right: 0;
+    border-left: 1px solid rgba(245, 158, 11, 0.08);
+  }
+
+  /* Projector beam effect */
+  .projector-beam {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .projector-beam::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(
+      from 0deg at 50% 0%,
+      transparent 0deg,
+      rgba(245, 158, 11, 0.015) 10deg,
+      transparent 20deg,
+      transparent 40deg,
+      rgba(245, 158, 11, 0.01) 50deg,
+      transparent 60deg,
+      transparent 80deg,
+      rgba(245, 158, 11, 0.015) 90deg,
+      transparent 100deg,
+      transparent 120deg,
+      rgba(245, 158, 11, 0.01) 130deg,
+      transparent 140deg,
+      transparent 160deg,
+      rgba(245, 158, 11, 0.015) 170deg,
+      transparent 180deg,
+      transparent 200deg,
+      rgba(245, 158, 11, 0.01) 210deg,
+      transparent 220deg,
+      transparent 240deg,
+      rgba(245, 158, 11, 0.015) 250deg,
+      transparent 260deg,
+      transparent 280deg,
+      rgba(245, 158, 11, 0.01) 290deg,
+      transparent 300deg,
+      transparent 320deg,
+      rgba(245, 158, 11, 0.015) 330deg,
+      transparent 340deg,
+      transparent 360deg
+    );
+    animation: projectorRotate 30s linear infinite;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Cinema card with film frame effect */
+  .cinema-card {
+    position: relative;
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.6));
+    border: 1px solid rgba(245, 158, 11, 0.08);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .cinema-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(245, 158, 11, 0.3), transparent);
+    z-index: 1;
+  }
+
+  .cinema-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(245, 158, 11, 0.1), transparent);
+    z-index: 1;
+  }
+
+  /* Scene number badge - like a film frame counter */
+  .scene-badge {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 28px;
+    height: 20px;
+    padding: 0 6px;
+    background: rgba(245, 158, 11, 0.1);
+    border: 1px solid rgba(245, 158, 11, 0.2);
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 700;
+    color: #f59e0b;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.05em;
+  }
+
+  /* Clapperboard divider */
+  .clapperboard-divider {
+    position: relative;
+    height: 2px;
+    background: linear-gradient(90deg, rgba(245, 158, 11, 0.2), rgba(245, 158, 11, 0.05), transparent);
+    margin: 16px 0;
+  }
+
+  .clapperboard-divider::before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: 0;
+    width: 40px;
+    height: 10px;
+    background: repeating-linear-gradient(
+      -45deg,
+      rgba(245, 158, 11, 0.15),
+      rgba(245, 158, 11, 0.15) 3px,
+      transparent 3px,
+      transparent 6px
+    );
+    border-radius: 2px;
+  }
+
+  /* Lens flare accent */
+  .lens-flare {
+    position: relative;
+  }
+
+  .lens-flare::after {
+    content: '';
+    position: absolute;
+    top: -1px;
+    right: -1px;
+    width: 60%;
+    height: 60%;
+    background: radial-gradient(ellipse at top right, rgba(245, 158, 11, 0.08), transparent 70%);
+    pointer-events: none;
+    border-radius: inherit;
+  }
+
+  /* Film reel spin animation for loading */
+  .film-reel-spin {
+    animation: filmReelSpin 1.5s steps(8) infinite;
+  }
+
+  /* Spotlight hover effect */
+  .spotlight-hover {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .spotlight-hover::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(245, 158, 11, 0.03), transparent);
+    transition: left 0.6s ease;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .spotlight-hover:hover::before {
+    left: 100%;
+  }
+
+  /* Anamorphic streak */
+  .anamorphic-streak {
+    position: relative;
+  }
+
+  .anamorphic-streak::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(245, 158, 11, 0.15), rgba(255, 255, 255, 0.05), transparent);
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+}
+
+@layer utilities {
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.4s ease-out forwards;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.5s ease-out forwards;
+    opacity: 0;
+  }
+
+  .animate-slide-in-left {
+    animation: slideInLeft 0.3s ease-out forwards;
+  }
+
+  .animate-scale-in {
+    animation: scaleIn 0.3s ease-out forwards;
+  }
+
+  .animate-shimmer {
+    background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.03) 50%, transparent 100%);
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .animate-glow {
+    animation: glow 3s ease-in-out infinite;
+  }
+
+  .animate-projector {
+    animation: projectorFlicker 4s ease-in-out infinite;
+  }
+
+  .stagger-1 { animation-delay: 0.05s; }
+  .stagger-2 { animation-delay: 0.1s; }
+  .stagger-3 { animation-delay: 0.15s; }
+  .stagger-4 { animation-delay: 0.2s; }
+  .stagger-5 { animation-delay: 0.25s; }
+  .stagger-6 { animation-delay: 0.3s; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes slideInLeft {
+    from { opacity: 0; transform: translateX(-16px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  @keyframes scaleIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  @keyframes glow {
+    0%, 100% { box-shadow: 0 0 20px rgba(245, 158, 11, 0.1); }
+    50% { box-shadow: 0 0 40px rgba(245, 158, 11, 0.2); }
+  }
+
+  @keyframes projectorRotate {
+    from { transform: translateX(-50%) rotate(0deg); }
+    to { transform: translateX(-50%) rotate(360deg); }
+  }
+
+  @keyframes projectorFlicker {
+    0%, 100% { opacity: 1; }
+    48% { opacity: 1; }
+    50% { opacity: 0.97; }
+    52% { opacity: 1; }
+    78% { opacity: 1; }
+    80% { opacity: 0.98; }
+    82% { opacity: 1; }
+  }
+
+  @keyframes filmReelSpin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+}
