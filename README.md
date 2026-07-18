@@ -1,6 +1,28 @@
 # Ai-Film-Studio
 AI Film Studio is an AI-powered filmmaking platform that streamlines the entire content production workflow—from story creation and script writing to AI-generated visuals, audio, trailer production, project management, and performance analytics—all within a modern web application.
 
+# Screenshots:
+Sign-in/Signup Pages:<img width="1366" height="714" alt="image" src="https://github.com/user-attachments/assets/99a9a318-f789-4675-83ab-74e1ec7a1224" />
+Dashboard:<img width="1366" height="717" alt="image" src="https://github.com/user-attachments/assets/514c648f-c337-4b35-bc90-24998fc81785" />
+Projects:
+Story:<img width="1365" height="716" alt="image" src="https://github.com/user-attachments/assets/c1529c17-d8f5-4af3-8a43-be7db32b844e" />
+Script:<img width="1366" height="726" alt="image" src="https://github.com/user-attachments/assets/06c8bcb2-5949-488a-bb7b-7e8ac43b5a04" />
+Visuals:<img width="1364" height="582" alt="image" src="https://github.com/user-attachments/assets/12e4eeb1-7847-46e0-8ab6-600c66929c76" />
+Audio:<img width="1366" height="595" alt="image" src="https://github.com/user-attachments/assets/6da37bad-a6bb-4771-bae8-14205d78a20b" />
+
+Trailer:<img width="1366" height="627" alt="image" src="https://github.com/user-attachments/assets/f7b60eb4-ebc2-4cdb-9f04-7df975ed18ce" />
+
+Analytics:<img width="1358" height="626" alt="image" src="https://github.com/user-attachments/assets/618c6afc-bcf4-4528-bb06-9b19077d35c7" />
+Note:when connected to real api it generates real visuals,audio,trailer,analytics according to story otherwise fallback data shown from backend for demo.
+
+
+
+
+
+
+
+
+
 
 
 # 🎬 AI Film Studio
